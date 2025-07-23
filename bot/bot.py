@@ -69,7 +69,8 @@ class DiscordBot(commands.Bot):
 
         from discord.ui import View, Button
         view = View()
-        button = Button(label="Connect", url="https://tinyurl.com/mtamvp1337", style=discord.ButtonStyle.link)
+        button_url = self.config.connect_url or "https://tinyurl.com/mtamvp1337"
+        button = Button(label="Connect", url=button_url, style=discord.ButtonStyle.link)
         view.add_item(button)
 
         await self.embed_message.edit(content=None, embed=embed, view=view)
