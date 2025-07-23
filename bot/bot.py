@@ -13,6 +13,7 @@ class DiscordBot(commands.Bot):
     def __init__(self, config: BotConfig) -> None:
         intents = discord.Intents.default()
         intents.message_content = True
+        intents.members = True
         super().__init__(command_prefix='!', intents=intents)
         self.config = config
         self.embed_message = None
@@ -24,6 +25,58 @@ class DiscordBot(commands.Bot):
 
     def run_bot(self) -> None:
         super().run(self.config.token)
+
+    async def on_member_join(self, member: discord.Member) -> None:
+        channel = (
+            self.get_channel(self.config.welcome_channel_id)
+            if self.config.welcome_channel_id
+            else None
+        )
+        if channel is None:
+            print(
+                f"Welcome channel ID {self.config.welcome_channel_id} not found in guild '{member.guild.name}'."
+            )
+            return
+
+        color = int(self.config.embed_color.lstrip("#"), 16)
+        embed = discord.Embed(
+            title=self.config.welcome_title.format(
+                member=member, member_count=member.guild.member_count
+            ),
+            description=self.config.welcome_message.format(
+                member=member, member_count=member.guild.member_count
+            ),
+            color=color,
+        )
+        embed.set_thumbnail(url=member.display_avatar.url)
+        embed.set_image(url=self.config.banner_url)
+        await channel.send(embed=embed)
+
+    async def on_member_remove(self, member: discord.Member) -> None:
+        channel = (
+            self.get_channel(self.config.leave_channel_id)
+            if self.config.leave_channel_id
+            else None
+        )
+        if channel is None:
+            print(
+                f"Leave channel ID {self.config.leave_channel_id} not found in guild '{member.guild.name}'."
+            )
+            return
+
+        color = int(self.config.embed_color.lstrip("#"), 16)
+        embed = discord.Embed(
+            title=self.config.leave_title.format(
+                member=member, member_count=member.guild.member_count
+            ),
+            description=self.config.leave_message.format(
+                member=member, member_count=member.guild.member_count
+            ),
+            color=color,
+        )
+        embed.set_thumbnail(url=member.display_avatar.url)
+        embed.set_image(url=self.config.banner_url)
+        await channel.send(embed=embed)
 
     @tasks.loop(seconds=60)
     async def update_embed(self) -> None:

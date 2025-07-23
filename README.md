@@ -30,7 +30,7 @@ The bot will connect to Discord and begin updating the embed in the specified ch
 
 ## Configuration
 
-`config.ini` holds the settings for the bot. Below is an overview:
+`config.ini` holds the settings for the bot. Below is an overview. The new `[events]` section controls join/leave messages:
 
 ```ini
 [discord]
@@ -47,7 +47,21 @@ short_server_name = MVP
 connect_url = https://tinyurl.com/yourserver
 # ASE query port of the server (not the game port)
 port = 22005
+
+[events]
+welcome_channel_id = 123456789012345678  # channel for welcome messages
+leave_channel_id = 123456789012345679    # channel for leave/log messages
+embed_color = #ff9d00
+banner_url = https://cdn.discordapp.com/attachments/1278491203905523854/1326757485356253305/MvP_banner_zoomed.jpg?ex=68387ff2&is=68372e72&hm=8c8f4b0deb6961e58d59bbf06b0ae19dddc47dceded1c431c942bd25ea1a1edd&
+welcome_title = Welcome {member.name}!
+welcome_message = {member.mention} joined the server. We now have {member_count} members!
+leave_title = {member.name} left.
+leave_message = {member.mention} left the server. We now have {member_count} members.
 ```
+
+`welcome_channel_id` and `leave_channel_id` should be set to the Discord channel
+IDs where the bot will post join and leave embeds. The remaining options control
+the appearance and text of those messages.
 
 Adjust the values to match your server. The host should be the public IP of your MTA:SA server, and the port must be its ASE port so the bot can query player information.
 Because Discord link buttons do not support the `mtasa://` protocol directly, the `connect_url` setting must point to a URL shortener that forwards to your `mtasa://SERVERIP:PORT` address.
