@@ -23,8 +23,8 @@ class BotConfig:
     connect_url: str | None = None
     thumbnail_url: str | None = None
     image_url: str | None = None
-    welcome_channel: str = "👋🏻┊arrivers"
-    leave_channel: str = "💻┊dc-logs"
+    welcome_channel_id: int | None = None
+    leave_channel_id: int | None = None
     embed_color: str = "#ff9d00"
     banner_url: str = BANNER_URL
     welcome_title: str = "Welcome {member.name}!"
@@ -63,6 +63,15 @@ def load_config(path: str | Path = 'config.ini') -> BotConfig:
     leave_title = parser.get('events', 'leave_title', fallback='{member.name} left.')
     leave_message = parser.get('events', 'leave_message', fallback='{member.mention} left the server. We now have {member_count} members.')
 
+    welcome_channel_id = parser.getint('events', 'welcome_channel_id', fallback=None)
+    leave_channel_id = parser.getint('events', 'leave_channel_id', fallback=None)
+    embed_color = parser.get('events', 'embed_color', fallback='#ff9d00')
+    banner_url = parser.get('events', 'banner_url', fallback=BANNER_URL)
+    welcome_title = parser.get('events', 'welcome_title', fallback='Welcome {member.name}!')
+    welcome_message = parser.get('events', 'welcome_message', fallback='{member.mention} joined the server. We now have {member_count} members!')
+    leave_title = parser.get('events', 'leave_title', fallback='{member.name} left.')
+    leave_message = parser.get('events', 'leave_message', fallback='{member.mention} left the server. We now have {member_count} members.')
+
     if token is None:
         raise RuntimeError('Discord token not configured')
     if channel_id is None:
@@ -79,8 +88,8 @@ def load_config(path: str | Path = 'config.ini') -> BotConfig:
         connect_url,
         thumbnail_url,
         image_url,
-        welcome_channel,
-        leave_channel,
+        welcome_channel_id,
+        leave_channel_id,
         embed_color,
         banner_url,
         welcome_title,
