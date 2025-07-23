@@ -6,19 +6,6 @@ import urllib.request
 from typing import Any, Dict, List
 
 
-def query_players(host: str, port: int, username: str | None = None, password: str | None = None) -> List[Dict[str, Any]]:
-    """Query the HTTP player endpoint of an MTA server."""
-    url = f"http://{host}:{port}/players"
-    request = urllib.request.Request(url)
-    if username and password:
-        import base64
-        creds = f"{username}:{password}"
-        request.add_header('Authorization', f"Basic {base64.b64encode(creds.encode()).decode()}")
-    with urllib.request.urlopen(request) as resp:
-        data = json.loads(resp.read().decode())
-    return data.get('players', [])
-
-
 def query_ase_players(host: str, port: int) -> Dict[str, Any]:
     """Query an MTA server using the ASE UDP protocol."""
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)

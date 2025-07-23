@@ -1,6 +1,6 @@
 from .bot import create_bot, DiscordBot
 from .config import BotConfig, load_config
-from .query import query_ase_players, query_players
+from .query import query_ase_players
 
 __all__ = [
     'create_bot',
@@ -8,5 +8,4 @@ __all__ = [
     'BotConfig',
     'load_config',
     'query_ase_players',
-    'query_players',
 ]
