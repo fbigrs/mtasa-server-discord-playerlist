@@ -23,8 +23,8 @@ class BotConfig:
     connect_url: str | None = None
     thumbnail_url: str | None = None
     image_url: str | None = None
-    welcome_channel: str = "👋🏻┊arrivers"
-    leave_channel: str = "💻┊dc-logs"
+    welcome_channel_id: int | None = None
+    leave_channel_id: int | None = None
     embed_color: str = "#ff9d00"
     banner_url: str = BANNER_URL
     welcome_title: str = "Welcome {member.name}!"
@@ -53,8 +53,8 @@ def load_config(path: str | Path = 'config.ini') -> BotConfig:
     thumbnail_url = parser.get('discord', 'thumbnail_url', fallback=None)
     image_url = parser.get('discord', 'image_url', fallback=None)
 
-    welcome_channel = parser.get('events', 'welcome_channel', fallback='👋🏻┊arrivers')
-    leave_channel = parser.get('events', 'leave_channel', fallback='💻┊dc-logs')
+    welcome_channel_id = parser.getint('events', 'welcome_channel_id', fallback=None)
+    leave_channel_id = parser.getint('events', 'leave_channel_id', fallback=None)
     embed_color = parser.get('events', 'embed_color', fallback='#ff9d00')
     banner_url = parser.get('events', 'banner_url', fallback=BANNER_URL)
     welcome_title = parser.get('events', 'welcome_title', fallback='Welcome {member.name}!')
@@ -78,8 +78,8 @@ def load_config(path: str | Path = 'config.ini') -> BotConfig:
         connect_url,
         thumbnail_url,
         image_url,
-        welcome_channel,
-        leave_channel,
+        welcome_channel_id,
+        leave_channel_id,
         embed_color,
         banner_url,
         welcome_title,
