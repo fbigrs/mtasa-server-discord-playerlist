@@ -43,8 +43,11 @@ channel_id = 123456789012345678
 host = 127.0.0.1
 #Short Server Name for Bot Activity Display
 short_server_name = MVP
+# Short URL that forwards to your mtasa://SERVERIP:PORT link
+connect_url = https://tinyurl.com/yourserver
 # ASE query port of the server (not the game port)
 port = 22005
 ```
 
 Adjust the values to match your server. The host should be the public IP of your MTA:SA server, and the port must be its ASE port so the bot can query player information.
+Because Discord link buttons do not support the `mtasa://` protocol directly, the `connect_url` setting must point to a URL shortener that forwards to your `mtasa://SERVERIP:PORT` address.
