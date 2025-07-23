@@ -64,8 +64,8 @@ class DiscordBot(commands.Bot):
             embed.add_field(name="> Player List", value="```\n" + "\n".join(players) + "\n```", inline=False)
         else:
             embed.add_field(name="> Player List", value="```No players online.```", inline=False)
-        embed.set_thumbnail(url="https://pixelz.xyz/ajIBYIyF.png")
-        embed.set_image(url="https://pixelz.xyz/IZT0H4r7.webp")
+        embed.set_thumbnail(url=self.config.thumbnail_url or "https://pixelz.xyz/ajIBYIyF.png")
+        embed.set_image(url=self.config.image_url or "https://pixelz.xyz/IZT0H4r7.webp")
 
         from discord.ui import View, Button
         view = View()
