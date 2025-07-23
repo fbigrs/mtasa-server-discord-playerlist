@@ -48,6 +48,11 @@ class DiscordBot(commands.Bot):
         max_players = info.get('max_players')
         status = "Online" if players is not None else "Offline"
 
+        # Set bot activity to show current player count
+        display_name = self.config.short_server_name or server_name
+        activity = discord.Game(name=f"on {display_name} ({current_players}/{max_players})")
+        await self.change_presence(activity=activity)
+
         embed = discord.Embed(
             title=f"{server_name} - Server Status",
             color=discord.Color.green() if status == 'Online' else discord.Color.red(),
