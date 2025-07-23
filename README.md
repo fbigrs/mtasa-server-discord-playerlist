@@ -9,6 +9,7 @@ The bot uses the MTA ASE query protocol to fetch server information such as the 
 - Queries an MTA:SA server for its current status and player list.
 - Posts the information as a rich embed in a Discord channel.
 - Continuously updates the message every 60 seconds to keep information fresh.
+- Sends configurable welcome/leave embeds when members join or leave your Discord server.
 
 ## Setup
 
@@ -30,21 +31,25 @@ The bot will connect to Discord and begin updating the embed in the specified ch
 
 ## Configuration
 
-`config.ini` holds the settings for the bot. Below is an overview. The new `[events]` section controls join/leave messages:
+`config.ini` holds the settings for the bot. Below is an overview. The `[embed]` section configures the status message embed and `[events]` controls join/leave notifications:
 
 ```ini
+
 [discord]
-# Discord bot token and the channel where status will be posted
+# Discord bot token
 token = YOUR_BOT_TOKEN_HERE
+
+[embed]
+# Channel where the server status embed will be posted
 channel_id = 123456789012345678
+thumbnail_url = https://pixelz.xyz/ajIBYIyF.png
+image_url = https://pixelz.xyz/IZT0H4r7.webp
+connect_url = https://tinyurl.com/yourserver
+embed_color = #ff9d00
 
 [server]
 # IP address of your MTA:SA server
 host = 127.0.0.1
-#Short Server Name for Bot Activity Display
-short_server_name = MVP
-# Short URL that forwards to your mtasa://SERVERIP:PORT link
-connect_url = https://tinyurl.com/yourserver
 # ASE query port of the server (not the game port)
 port = 22005
 
@@ -65,3 +70,7 @@ the appearance and text of those messages.
 
 Adjust the values to match your server. The host should be the public IP of your MTA:SA server, and the port must be its ASE port so the bot can query player information.
 Because Discord link buttons do not support the `mtasa://` protocol directly, the `connect_url` setting must point to a URL shortener that forwards to your `mtasa://SERVERIP:PORT` address.
+
+## Join/Leave Notifications
+
+When a member joins or leaves your Discord guild the bot posts an embed in the channels defined by `welcome_channel_id` and `leave_channel_id`. The text of these embeds can be customised using placeholders like `{member.name}`, `{member.mention}` and `{member_count}` which will be replaced with the user's name, a mention and the current member count.
