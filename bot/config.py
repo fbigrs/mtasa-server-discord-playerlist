@@ -52,6 +52,16 @@ def load_config(path: str | Path = 'config.ini') -> BotConfig:
     connect_url = parser.get('discord', 'connect_url', fallback=None)
     thumbnail_url = parser.get('discord', 'thumbnail_url', fallback=None)
     image_url = parser.get('discord', 'image_url', fallback=None)
+    embed_color = parser.get('discord', 'embed_color', fallback=None)
+
+    welcome_channel = parser.get('events', 'welcome_channel', fallback='👋🏻┊arrivers')
+    leave_channel = parser.get('events', 'leave_channel', fallback='💻┊dc-logs')
+    embed_color = parser.get('events', 'embed_color', fallback='#ff9d00')
+    banner_url = parser.get('events', 'banner_url', fallback=BANNER_URL)
+    welcome_title = parser.get('events', 'welcome_title', fallback='Welcome {member.name}!')
+    welcome_message = parser.get('events', 'welcome_message', fallback='{member.mention} joined the server. We now have {member_count} members!')
+    leave_title = parser.get('events', 'leave_title', fallback='{member.name} left.')
+    leave_message = parser.get('events', 'leave_message', fallback='{member.mention} left the server. We now have {member_count} members.')
 
     welcome_channel_id = parser.getint('events', 'welcome_channel_id', fallback=None)
     leave_channel_id = parser.getint('events', 'leave_channel_id', fallback=None)
