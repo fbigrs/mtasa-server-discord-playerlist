@@ -53,9 +53,19 @@ class DiscordBot(commands.Bot):
         activity = discord.Game(name=f"on {display_name} ({current_players}/{max_players})")
         await self.change_presence(activity=activity)
 
+        # Determine embed color
+        color = None
+        if self.config.embed_color:
+            try:
+                color = discord.Color(int(self.config.embed_color.lstrip('#'), 16))
+            except Exception:
+                color = None
+        if color is None:
+            color = discord.Color.green() if status == 'Online' else discord.Color.red()
+
         embed = discord.Embed(
             title=f"{server_name} - Server Status",
-            color=discord.Color.green() if status == 'Online' else discord.Color.red(),
+            color=color,
         )
         embed.add_field(name="> Status", value=f"```{'🟢' if status == 'Online' else '🔴'} {status}```", inline=True)
         embed.add_field(name="> Players", value=f"```{current_players}/{max_players}```", inline=True)

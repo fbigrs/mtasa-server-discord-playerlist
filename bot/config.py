@@ -17,6 +17,7 @@ class BotConfig:
     connect_url: str | None = None
     thumbnail_url: str | None = None
     image_url: str | None = None
+    embed_color: str | None = None
 
 
 def load_config(path: str | Path = 'config.ini') -> BotConfig:
@@ -34,10 +35,11 @@ def load_config(path: str | Path = 'config.ini') -> BotConfig:
     connect_url = parser.get('discord', 'connect_url', fallback=None)
     thumbnail_url = parser.get('discord', 'thumbnail_url', fallback=None)
     image_url = parser.get('discord', 'image_url', fallback=None)
+    embed_color = parser.get('discord', 'embed_color', fallback=None)
 
     if token is None:
         raise RuntimeError('Discord token not configured')
     if channel_id is None:
         raise RuntimeError('Discord channel_id not configured')
 
-    return BotConfig(token, channel_id, host, port, username, password, short_server_name, connect_url, thumbnail_url, image_url)
+    return BotConfig(token, channel_id, host, port, username, password, short_server_name, connect_url, thumbnail_url, image_url, embed_color)
