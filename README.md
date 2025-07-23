@@ -41,6 +41,8 @@ channel_id = 123456789012345678
 [server]
 # IP address of your MTA:SA server
 host = 127.0.0.1
+#Short Server Name for Bot Activity Display
+short_server_name = MVP
 # ASE query port of the server (not the game port)
 port = 22005
 ```
