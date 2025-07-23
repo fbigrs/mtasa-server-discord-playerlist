@@ -30,7 +30,7 @@ The bot will connect to Discord and begin updating the embed in the specified ch
 
 ## Configuration
 
-`config.ini` holds the settings for the bot. Below is an overview:
+`config.ini` holds the settings for the bot. Below is an overview. The new `[events]` section controls join/leave messages:
 
 ```ini
 [discord]
@@ -47,6 +47,16 @@ short_server_name = MVP
 connect_url = https://tinyurl.com/yourserver
 # ASE query port of the server (not the game port)
 port = 22005
+
+[events]
+welcome_channel = 👋🏻┊arrivers
+leave_channel = 💻┊dc-logs
+embed_color = #ff9d00
+banner_url = https://cdn.discordapp.com/attachments/1278491203905523854/1326757485356253305/MvP_banner_zoomed.jpg?ex=68387ff2&is=68372e72&hm=8c8f4b0deb6961e58d59bbf06b0ae19dddc47dceded1c431c942bd25ea1a1edd&
+welcome_title = Welcome {member.name}!
+welcome_message = {member.mention} joined the server. We now have {member_count} members!
+leave_title = {member.name} left.
+leave_message = {member.mention} left the server. We now have {member_count} members.
 ```
 
 Adjust the values to match your server. The host should be the public IP of your MTA:SA server, and the port must be its ASE port so the bot can query player information.
