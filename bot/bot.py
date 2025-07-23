@@ -27,12 +27,14 @@ class DiscordBot(commands.Bot):
         super().run(self.config.token)
 
     async def on_member_join(self, member: discord.Member) -> None:
-        channel = discord.utils.get(
-            member.guild.text_channels, name=self.config.welcome_channel
+        channel = (
+            self.get_channel(self.config.welcome_channel_id)
+            if self.config.welcome_channel_id
+            else None
         )
         if channel is None:
             print(
-                f"Welcome channel '{self.config.welcome_channel}' not found in guild '{member.guild.name}'."
+                f"Welcome channel ID {self.config.welcome_channel_id} not found in guild '{member.guild.name}'."
             )
             return
 
@@ -51,12 +53,14 @@ class DiscordBot(commands.Bot):
         await channel.send(embed=embed)
 
     async def on_member_remove(self, member: discord.Member) -> None:
-        channel = discord.utils.get(
-            member.guild.text_channels, name=self.config.leave_channel
+        channel = (
+            self.get_channel(self.config.leave_channel_id)
+            if self.config.leave_channel_id
+            else None
         )
         if channel is None:
             print(
-                f"Leave channel '{self.config.leave_channel}' not found in guild '{member.guild.name}'."
+                f"Leave channel ID {self.config.leave_channel_id} not found in guild '{member.guild.name}'."
             )
             return
 
