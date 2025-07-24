@@ -136,7 +136,12 @@ class DiscordBot(commands.Bot):
         button = Button(label="Connect", url=button_url, style=discord.ButtonStyle.link)
         view.add_item(button)
 
-        await self.embed_message.edit(content=None, embed=embed, view=view)
+        try:
+            await self.embed_message.edit(content=None, embed=embed, view=view)
+        except discord.errors.DiscordServerError as e:
+            print(f"Discord server error: {e}")
+        except Exception as e:
+            print(f"Unexpected error: {e}")
 
 
 def create_bot(config_path: str = 'config.ini') -> DiscordBot:
