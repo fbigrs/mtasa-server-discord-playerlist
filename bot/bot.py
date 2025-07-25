@@ -136,6 +136,10 @@ class DiscordBot(commands.Bot):
         button = Button(label="Connect", url=button_url, style=discord.ButtonStyle.link)
         view.add_item(button)
 
+        # Set footer with custom text from config
+        if self.config.footer_text:
+            embed.set_footer(text=self.config.footer_text)
+
         try:
             await self.embed_message.edit(content=None, embed=embed, view=view)
         except discord.errors.DiscordServerError as e:

@@ -35,6 +35,7 @@ class BotConfig:
     leave_message: str = (
         "{member.mention} left the server. We now have {member_count} members."
     )
+    footer_text: str = ""
 
 
 def load_config(path: str | Path = 'config.ini') -> BotConfig:
@@ -53,6 +54,7 @@ def load_config(path: str | Path = 'config.ini') -> BotConfig:
     thumbnail_url = parser.get('embed', 'thumbnail_url', fallback=None)
     image_url = parser.get('embed', 'image_url', fallback=None)
     embed_color = parser.get('embed', 'embed_color', fallback=None)
+    footer_text = parser.get('embed', 'footer_text', fallback='')
 
     welcome_channel = parser.get('events', 'welcome_channel', fallback='👋🏻┊arrivers')
     leave_channel = parser.get('events', 'leave_channel', fallback='💻┊dc-logs')
@@ -96,4 +98,5 @@ def load_config(path: str | Path = 'config.ini') -> BotConfig:
         welcome_message,
         leave_title,
         leave_message,
+        footer_text,
     )
