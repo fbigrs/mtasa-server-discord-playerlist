@@ -38,12 +38,12 @@ class DiscordBot(commands.Bot):
             )
             return
 
-        color = int(self.config.embed_color.lstrip("#"), 16)
+        color = int(self.config.welcome_color.lstrip("#"), 16) if self.config.welcome_color else None
         embed = discord.Embed(
             title=self.config.welcome_title.format(
                 member=member, member_count=member.guild.member_count
             ),
-            description=self.config.welcome_message.format(
+            description=self.config.welcome_description.format(
                 member=member, member_count=member.guild.member_count
             ),
             color=color,
@@ -64,12 +64,12 @@ class DiscordBot(commands.Bot):
             )
             return
 
-        color = int(self.config.embed_color.lstrip("#"), 16)
+        color = int(self.config.leave_color.lstrip("#"), 16) if self.config.leave_color else None
         embed = discord.Embed(
             title=self.config.leave_title.format(
                 member=member, member_count=member.guild.member_count
             ),
-            description=self.config.leave_message.format(
+            description=self.config.leave_description.format(
                 member=member, member_count=member.guild.member_count
             ),
             color=color,
